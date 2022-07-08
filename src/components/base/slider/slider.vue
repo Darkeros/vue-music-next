@@ -1,6 +1,6 @@
 <template>
-  <div class="slider" >
-    <div class="slider-group" ref="rootRef">
+  <div class="slider" ref="rootRef">
+    <div class="slider-group">
       <div
         class="slider-page"
         v-for="item in sliders"
@@ -23,31 +23,32 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import useSlider from './use-slider'
-export default {
-  name: 'slider',
-  props: {
-    sliders: {
-      type: Array,
-      default () {
-        return []
+  import { ref } from 'vue'
+  import useSlider from './use-slider'
+
+  export default {
+    name: 'slider',
+    props: {
+      sliders: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
+    setup() {
+      const rootRef = ref(null)
+      const { currentPageIndex } = useSlider(rootRef)
+
+      return {
+        rootRef,
+        currentPageIndex
       }
     }
-  },
-  setup () {
-    const rootRef = ref(null)
-    const { currentPageIndex } = useSlider(rootRef)
-
-    return {
-      currentPageIndex,
-      rootRef
-    }
   }
-}
 </script>
 
-<style lang="scss" sco ped>
+<style lang="scss" scoped>
   .slider {
     min-height: 1px;
     font-size: 0;
